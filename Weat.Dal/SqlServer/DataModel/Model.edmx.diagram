@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7fbff4e12f114dd4b1a617bfb9083a42" Name="Diagram1">
+        <EntityTypeShape EntityType="WeatModel.FRIDGE" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.FRIGDEINGREDIENT" Width="1.5" PointX="8.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.INGREDIENT" Width="1.5" PointX="3.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.PERSON" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.PLANNING" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.RECIPE" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.STEPRECIPE" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.TYPEFRIDGE" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.TYPEINGREDIENT" Width="1.5" PointX="1.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatModel.TYPERECIPE" Width="1.5" PointX="3.75" PointY="12.375" IsExpanded="true" />
+        <AssociationConnector Association="WeatModel.FK_FRIDGE_PERSON" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_FRIDGE_TYPEFRIDGE" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_FRIGDEINGREDIENT_FRIDGE" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_FRIGDEINGREDIENT_INGREDIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_INGREDIENT_TYPEINGREDIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_PLANNING_PERSON" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_RECIPE_PERSON" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_PLANNING_RECIPE" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_RECIPE_TYPERECIPE" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FK_STEPRECIPE_RECIPE" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.FAVORITERECIPEUSER" ManuallyRouted="false" />
+        <AssociationConnector Association="WeatModel.RECIPEINGREDIENT" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
