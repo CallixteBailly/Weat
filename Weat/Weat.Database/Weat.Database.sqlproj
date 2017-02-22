@@ -72,12 +72,15 @@
     <Build Include="dbo\Tables\RECIPE.sql" />
     <Build Include="dbo\Tables\INGREDIENT.sql" />
     <Build Include="dbo\Tables\FAVORITERECIPEUSER.sql" />
-    <Build Include="dbo\Tables\FRIGDEINGREDIENT.sql" />
+    <Build Include="dbo\Tables\FRIDGEINGREDIENT.sql" />
     <Build Include="dbo\Tables\PLANNING.sql" />
     <Build Include="dbo\Tables\RECIPEINGREDIENT.sql" />
     <None Include="Scripts\ScriptsIgnoredOnImport.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Publish\Weat.Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Weat.Database.refactorlog" />
   </ItemGroup>
 </Project>

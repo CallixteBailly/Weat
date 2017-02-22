@@ -1,13 +1,13 @@
 /*
  ----------------------------------------------------------------------------
-             Génération d'une base de données pour
+             Gï¿½nï¿½ration d'une base de donnï¿½es pour
                         SQL Server 2005
                        (13/1/2017 13:38:50)
  ----------------------------------------------------------------------------
      Nom de la base : MLR2
      Projet : Espace de travail
      Auteur : Matt
-     Date de dernière modification : 13/1/2017 13:38:37
+     Date de derniï¿½re modification : 13/1/2017 13:38:37
  ----------------------------------------------------------------------------
 */
 

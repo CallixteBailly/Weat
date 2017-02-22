@@ -1,0 +1,42 @@
+﻿@model Weat.Entities.DataModel.INGREDIENT
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>INGREDIENT</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.URLIMAGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.URLIMAGE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NAMEINGREDIENT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAMEINGREDIENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TYPEINGREDIENT.CAPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TYPEINGREDIENT.CAPTION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDINGREDIENT }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
