@@ -12,7 +12,7 @@ namespace Weat.Entities.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class FRIGDEINGREDIENT
+    public partial class FRIDGEINGREDIENT
     {
         public short IDINGREDIENT { get; set; }
         public short IDFRIDGE { get; set; }

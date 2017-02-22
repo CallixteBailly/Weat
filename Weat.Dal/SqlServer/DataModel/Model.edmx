@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WeatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WeatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="FAVORITERECIPEUSER">
           <Key>
             <PropertyRef Name="IDRECIPE" />
@@ -22,7 +22,7 @@
           <Property Name="IDUSER" Type="smallint" Nullable="false" />
           <Property Name="NAMEFRIDGE" Type="varchar" MaxLength="32" />
         </EntityType>
-        <EntityType Name="FRIGDEINGREDIENT">
+        <EntityType Name="FRIDGEINGREDIENT">
           <Key>
             <PropertyRef Name="IDINGREDIENT" />
             <PropertyRef Name="IDFRIDGE" />
@@ -155,26 +155,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FRIGDEINGREDIENT_FRIDGE">
+        <Association Name="FK_FRIDGEINGREDIENT_FRIDGE">
           <End Role="FRIDGE" Type="Self.FRIDGE" Multiplicity="1" />
-          <End Role="FRIGDEINGREDIENT" Type="Self.FRIGDEINGREDIENT" Multiplicity="*" />
+          <End Role="FRIDGEINGREDIENT" Type="Self.FRIDGEINGREDIENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FRIDGE">
               <PropertyRef Name="IDFRIDGE" />
             </Principal>
-            <Dependent Role="FRIGDEINGREDIENT">
+            <Dependent Role="FRIDGEINGREDIENT">
               <PropertyRef Name="IDFRIDGE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FRIGDEINGREDIENT_INGREDIENT">
+        <Association Name="FK_FRIDGEINGREDIENT_INGREDIENT">
           <End Role="INGREDIENT" Type="Self.INGREDIENT" Multiplicity="1" />
-          <End Role="FRIGDEINGREDIENT" Type="Self.FRIGDEINGREDIENT" Multiplicity="*" />
+          <End Role="FRIDGEINGREDIENT" Type="Self.FRIDGEINGREDIENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="INGREDIENT">
               <PropertyRef Name="IDINGREDIENT" />
             </Principal>
-            <Dependent Role="FRIGDEINGREDIENT">
+            <Dependent Role="FRIDGEINGREDIENT">
               <PropertyRef Name="IDINGREDIENT" />
             </Dependent>
           </ReferentialConstraint>
@@ -278,7 +278,7 @@
         <EntityContainer Name="WeatModelStoreContainer">
           <EntitySet Name="FAVORITERECIPEUSER" EntityType="Self.FAVORITERECIPEUSER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FRIDGE" EntityType="Self.FRIDGE" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FRIGDEINGREDIENT" EntityType="Self.FRIGDEINGREDIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FRIDGEINGREDIENT" EntityType="Self.FRIDGEINGREDIENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INGREDIENT" EntityType="Self.INGREDIENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PLANNING" EntityType="Self.PLANNING" Schema="dbo" store:Type="Tables" />
@@ -304,13 +304,13 @@
             <End Role="TYPEFRIDGE" EntitySet="TYPEFRIDGE" />
             <End Role="FRIDGE" EntitySet="FRIDGE" />
           </AssociationSet>
-          <AssociationSet Name="FK_FRIGDEINGREDIENT_FRIDGE" Association="Self.FK_FRIGDEINGREDIENT_FRIDGE">
+          <AssociationSet Name="FK_FRIDGEINGREDIENT_FRIDGE" Association="Self.FK_FRIDGEINGREDIENT_FRIDGE">
             <End Role="FRIDGE" EntitySet="FRIDGE" />
-            <End Role="FRIGDEINGREDIENT" EntitySet="FRIGDEINGREDIENT" />
+            <End Role="FRIDGEINGREDIENT" EntitySet="FRIDGEINGREDIENT" />
           </AssociationSet>
-          <AssociationSet Name="FK_FRIGDEINGREDIENT_INGREDIENT" Association="Self.FK_FRIGDEINGREDIENT_INGREDIENT">
+          <AssociationSet Name="FK_FRIDGEINGREDIENT_INGREDIENT" Association="Self.FK_FRIDGEINGREDIENT_INGREDIENT">
             <End Role="INGREDIENT" EntitySet="INGREDIENT" />
-            <End Role="FRIGDEINGREDIENT" EntitySet="FRIGDEINGREDIENT" />
+            <End Role="FRIDGEINGREDIENT" EntitySet="FRIDGEINGREDIENT" />
           </AssociationSet>
           <AssociationSet Name="FK_INGREDIENT_TYPEINGREDIENT" Association="Self.FK_INGREDIENT_TYPEINGREDIENT">
             <End Role="TYPEINGREDIENT" EntitySet="TYPEINGREDIENT" />
@@ -345,24 +345,83 @@
             <End Role="STEPRECIPE" EntitySet="STEPRECIPE" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WeatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WeatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FRIDGEs" EntityType="WeatModel.FRIDGE" />
+          <EntitySet Name="FRIDGEINGREDIENTs" EntityType="WeatModel.FRIDGEINGREDIENT" />
+          <EntitySet Name="INGREDIENTs" EntityType="WeatModel.INGREDIENT" />
+          <EntitySet Name="People" EntityType="WeatModel.PERSON" />
+          <EntitySet Name="PLANNINGs" EntityType="WeatModel.PLANNING" />
+          <EntitySet Name="RECIPEs" EntityType="WeatModel.RECIPE" />
+          <EntitySet Name="STEPRECIPEs" EntityType="WeatModel.STEPRECIPE" />
+          <EntitySet Name="TYPEFRIDGEs" EntityType="WeatModel.TYPEFRIDGE" />
+          <EntitySet Name="TYPEINGREDIENTs" EntityType="WeatModel.TYPEINGREDIENT" />
+          <EntitySet Name="TYPERECIPEs" EntityType="WeatModel.TYPERECIPE" />
+          <AssociationSet Name="FK_FRIDGE_PERSON" Association="WeatModel.FK_FRIDGE_PERSON">
+            <End Role="PERSON" EntitySet="People" />
+            <End Role="FRIDGE" EntitySet="FRIDGEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FRIDGE_TYPEFRIDGE" Association="WeatModel.FK_FRIDGE_TYPEFRIDGE">
+            <End Role="TYPEFRIDGE" EntitySet="TYPEFRIDGEs" />
+            <End Role="FRIDGE" EntitySet="FRIDGEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FRIDGEINGREDIENT_FRIDGE" Association="WeatModel.FK_FRIDGEINGREDIENT_FRIDGE">
+            <End Role="FRIDGE" EntitySet="FRIDGEs" />
+            <End Role="FRIDGEINGREDIENT" EntitySet="FRIDGEINGREDIENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FRIDGEINGREDIENT_INGREDIENT" Association="WeatModel.FK_FRIDGEINGREDIENT_INGREDIENT">
+            <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
+            <End Role="FRIDGEINGREDIENT" EntitySet="FRIDGEINGREDIENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INGREDIENT_TYPEINGREDIENT" Association="WeatModel.FK_INGREDIENT_TYPEINGREDIENT">
+            <End Role="TYPEINGREDIENT" EntitySet="TYPEINGREDIENTs" />
+            <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLANNING_PERSON" Association="WeatModel.FK_PLANNING_PERSON">
+            <End Role="PERSON" EntitySet="People" />
+            <End Role="PLANNING" EntitySet="PLANNINGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIPE_PERSON" Association="WeatModel.FK_RECIPE_PERSON">
+            <End Role="PERSON" EntitySet="People" />
+            <End Role="RECIPE" EntitySet="RECIPEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLANNING_RECIPE" Association="WeatModel.FK_PLANNING_RECIPE">
+            <End Role="RECIPE" EntitySet="RECIPEs" />
+            <End Role="PLANNING" EntitySet="PLANNINGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIPE_TYPERECIPE" Association="WeatModel.FK_RECIPE_TYPERECIPE">
+            <End Role="TYPERECIPE" EntitySet="TYPERECIPEs" />
+            <End Role="RECIPE" EntitySet="RECIPEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STEPRECIPE_RECIPE" Association="WeatModel.FK_STEPRECIPE_RECIPE">
+            <End Role="RECIPE" EntitySet="RECIPEs" />
+            <End Role="STEPRECIPE" EntitySet="STEPRECIPEs" />
+          </AssociationSet>
+          <AssociationSet Name="FAVORITERECIPEUSER" Association="WeatModel.FAVORITERECIPEUSER">
+            <End Role="PERSON" EntitySet="People" />
+            <End Role="RECIPE" EntitySet="RECIPEs" />
+          </AssociationSet>
+          <AssociationSet Name="RECIPEINGREDIENT" Association="WeatModel.RECIPEINGREDIENT">
+            <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
+            <End Role="RECIPE" EntitySet="RECIPEs" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="FRIDGE">
           <Key>
             <PropertyRef Name="IDFRIDGE" />
           </Key>
           <Property Name="IDFRIDGE" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODETYPEFRIDGE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CODETYPEFRIDGE" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="IDUSER" Type="Int16" Nullable="false" />
           <Property Name="NAMEFRIDGE" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PERSON" Relationship="Self.FK_FRIDGE_PERSON" FromRole="FRIDGE" ToRole="PERSON" />
-          <NavigationProperty Name="TYPEFRIDGE" Relationship="Self.FK_FRIDGE_TYPEFRIDGE" FromRole="FRIDGE" ToRole="TYPEFRIDGE" />
-          <NavigationProperty Name="FRIGDEINGREDIENTs" Relationship="Self.FK_FRIGDEINGREDIENT_FRIDGE" FromRole="FRIDGE" ToRole="FRIGDEINGREDIENT" />
+          <NavigationProperty Name="PERSON" Relationship="WeatModel.FK_FRIDGE_PERSON" FromRole="FRIDGE" ToRole="PERSON" />
+          <NavigationProperty Name="TYPEFRIDGE" Relationship="WeatModel.FK_FRIDGE_TYPEFRIDGE" FromRole="FRIDGE" ToRole="TYPEFRIDGE" />
+          <NavigationProperty Name="FRIDGEINGREDIENTs" Relationship="WeatModel.FK_FRIDGEINGREDIENT_FRIDGE" FromRole="FRIDGE" ToRole="FRIDGEINGREDIENT" />
         </EntityType>
-        <EntityType Name="FRIGDEINGREDIENT">
+        <EntityType Name="FRIDGEINGREDIENT">
           <Key>
             <PropertyRef Name="IDINGREDIENT" />
             <PropertyRef Name="IDFRIDGE" />
@@ -370,20 +429,20 @@
           <Property Name="IDINGREDIENT" Type="Int16" Nullable="false" />
           <Property Name="IDFRIDGE" Type="Int16" Nullable="false" />
           <Property Name="QUANTITY" Type="Int16" />
-          <NavigationProperty Name="FRIDGE" Relationship="Self.FK_FRIGDEINGREDIENT_FRIDGE" FromRole="FRIGDEINGREDIENT" ToRole="FRIDGE" />
-          <NavigationProperty Name="INGREDIENT" Relationship="Self.FK_FRIGDEINGREDIENT_INGREDIENT" FromRole="FRIGDEINGREDIENT" ToRole="INGREDIENT" />
+          <NavigationProperty Name="FRIDGE" Relationship="WeatModel.FK_FRIDGEINGREDIENT_FRIDGE" FromRole="FRIDGEINGREDIENT" ToRole="FRIDGE" />
+          <NavigationProperty Name="INGREDIENT" Relationship="WeatModel.FK_FRIDGEINGREDIENT_INGREDIENT" FromRole="FRIDGEINGREDIENT" ToRole="INGREDIENT" />
         </EntityType>
         <EntityType Name="INGREDIENT">
           <Key>
             <PropertyRef Name="IDINGREDIENT" />
           </Key>
           <Property Name="IDINGREDIENT" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODETYPEINGREDIENT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CODETYPEINGREDIENT" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="URLIMAGE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="NAMEINGREDIENT" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FRIGDEINGREDIENTs" Relationship="Self.FK_FRIGDEINGREDIENT_INGREDIENT" FromRole="INGREDIENT" ToRole="FRIGDEINGREDIENT" />
-          <NavigationProperty Name="TYPEINGREDIENT" Relationship="Self.FK_INGREDIENT_TYPEINGREDIENT" FromRole="INGREDIENT" ToRole="TYPEINGREDIENT" />
-          <NavigationProperty Name="RECIPEs" Relationship="Self.RECIPEINGREDIENT" FromRole="INGREDIENT" ToRole="RECIPE" />
+          <NavigationProperty Name="FRIDGEINGREDIENTs" Relationship="WeatModel.FK_FRIDGEINGREDIENT_INGREDIENT" FromRole="INGREDIENT" ToRole="FRIDGEINGREDIENT" />
+          <NavigationProperty Name="TYPEINGREDIENT" Relationship="WeatModel.FK_INGREDIENT_TYPEINGREDIENT" FromRole="INGREDIENT" ToRole="TYPEINGREDIENT" />
+          <NavigationProperty Name="RECIPEs" Relationship="WeatModel.RECIPEINGREDIENT" FromRole="INGREDIENT" ToRole="RECIPE" />
         </EntityType>
         <EntityType Name="PERSON">
           <Key>
@@ -394,10 +453,10 @@
           <Property Name="LASTNAME" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="PSEUDO" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="PASSWORD" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FRIDGEs" Relationship="Self.FK_FRIDGE_PERSON" FromRole="PERSON" ToRole="FRIDGE" />
-          <NavigationProperty Name="PLANNINGs" Relationship="Self.FK_PLANNING_PERSON" FromRole="PERSON" ToRole="PLANNING" />
-          <NavigationProperty Name="RECIPEs" Relationship="Self.FK_RECIPE_PERSON" FromRole="PERSON" ToRole="RECIPE" />
-          <NavigationProperty Name="RECIPEs1" Relationship="Self.FAVORITERECIPEUSER" FromRole="PERSON" ToRole="RECIPE" />
+          <NavigationProperty Name="FRIDGEs" Relationship="WeatModel.FK_FRIDGE_PERSON" FromRole="PERSON" ToRole="FRIDGE" />
+          <NavigationProperty Name="PLANNINGs" Relationship="WeatModel.FK_PLANNING_PERSON" FromRole="PERSON" ToRole="PLANNING" />
+          <NavigationProperty Name="RECIPEs" Relationship="WeatModel.FK_RECIPE_PERSON" FromRole="PERSON" ToRole="RECIPE" />
+          <NavigationProperty Name="RECIPEs1" Relationship="WeatModel.FAVORITERECIPEUSER" FromRole="PERSON" ToRole="RECIPE" />
         </EntityType>
         <EntityType Name="PLANNING">
           <Key>
@@ -407,23 +466,23 @@
           <Property Name="IDRECIPE" Type="Int16" Nullable="false" />
           <Property Name="IDUSER" Type="Int16" Nullable="false" />
           <Property Name="DATETIME" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PERSON" Relationship="Self.FK_PLANNING_PERSON" FromRole="PLANNING" ToRole="PERSON" />
-          <NavigationProperty Name="RECIPE" Relationship="Self.FK_PLANNING_RECIPE" FromRole="PLANNING" ToRole="RECIPE" />
+          <NavigationProperty Name="PERSON" Relationship="WeatModel.FK_PLANNING_PERSON" FromRole="PLANNING" ToRole="PERSON" />
+          <NavigationProperty Name="RECIPE" Relationship="WeatModel.FK_PLANNING_RECIPE" FromRole="PLANNING" ToRole="RECIPE" />
         </EntityType>
         <EntityType Name="RECIPE">
           <Key>
             <PropertyRef Name="IDRECIPE" />
           </Key>
           <Property Name="IDRECIPE" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODETYPERECIPE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CODETYPERECIPE" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="IDUSER" Type="Int16" Nullable="false" />
           <Property Name="NAMERECIPE" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PERSON" Relationship="Self.FK_RECIPE_PERSON" FromRole="RECIPE" ToRole="PERSON" />
-          <NavigationProperty Name="PLANNINGs" Relationship="Self.FK_PLANNING_RECIPE" FromRole="RECIPE" ToRole="PLANNING" />
-          <NavigationProperty Name="TYPERECIPE" Relationship="Self.FK_RECIPE_TYPERECIPE" FromRole="RECIPE" ToRole="TYPERECIPE" />
-          <NavigationProperty Name="STEPRECIPEs" Relationship="Self.FK_STEPRECIPE_RECIPE" FromRole="RECIPE" ToRole="STEPRECIPE" />
-          <NavigationProperty Name="People" Relationship="Self.FAVORITERECIPEUSER" FromRole="RECIPE" ToRole="PERSON" />
-          <NavigationProperty Name="INGREDIENTs" Relationship="Self.RECIPEINGREDIENT" FromRole="RECIPE" ToRole="INGREDIENT" />
+          <NavigationProperty Name="PERSON" Relationship="WeatModel.FK_RECIPE_PERSON" FromRole="RECIPE" ToRole="PERSON" />
+          <NavigationProperty Name="PLANNINGs" Relationship="WeatModel.FK_PLANNING_RECIPE" FromRole="RECIPE" ToRole="PLANNING" />
+          <NavigationProperty Name="TYPERECIPE" Relationship="WeatModel.FK_RECIPE_TYPERECIPE" FromRole="RECIPE" ToRole="TYPERECIPE" />
+          <NavigationProperty Name="STEPRECIPEs" Relationship="WeatModel.FK_STEPRECIPE_RECIPE" FromRole="RECIPE" ToRole="STEPRECIPE" />
+          <NavigationProperty Name="People" Relationship="WeatModel.FAVORITERECIPEUSER" FromRole="RECIPE" ToRole="PERSON" />
+          <NavigationProperty Name="INGREDIENTs" Relationship="WeatModel.RECIPEINGREDIENT" FromRole="RECIPE" ToRole="INGREDIENT" />
         </EntityType>
         <EntityType Name="STEPRECIPE">
           <Key>
@@ -434,35 +493,35 @@
           <Property Name="IDSTEPRECIPE" Type="Int16" Nullable="false" />
           <Property Name="TIMEPERIOD" Type="Int16" />
           <Property Name="MESSAGE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="RECIPE" Relationship="Self.FK_STEPRECIPE_RECIPE" FromRole="STEPRECIPE" ToRole="RECIPE" />
+          <NavigationProperty Name="RECIPE" Relationship="WeatModel.FK_STEPRECIPE_RECIPE" FromRole="STEPRECIPE" ToRole="RECIPE" />
         </EntityType>
         <EntityType Name="TYPEFRIDGE">
           <Key>
             <PropertyRef Name="CODETYPEFRIDGE" />
           </Key>
-          <Property Name="CODETYPEFRIDGE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CODETYPEFRIDGE" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="CAPTION" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FRIDGEs" Relationship="Self.FK_FRIDGE_TYPEFRIDGE" FromRole="TYPEFRIDGE" ToRole="FRIDGE" />
+          <NavigationProperty Name="FRIDGEs" Relationship="WeatModel.FK_FRIDGE_TYPEFRIDGE" FromRole="TYPEFRIDGE" ToRole="FRIDGE" />
         </EntityType>
         <EntityType Name="TYPEINGREDIENT">
           <Key>
             <PropertyRef Name="CODETYPEINGREDIENT" />
           </Key>
-          <Property Name="CODETYPEINGREDIENT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CODETYPEINGREDIENT" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="CAPTION" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="INGREDIENTs" Relationship="Self.FK_INGREDIENT_TYPEINGREDIENT" FromRole="TYPEINGREDIENT" ToRole="INGREDIENT" />
+          <NavigationProperty Name="INGREDIENTs" Relationship="WeatModel.FK_INGREDIENT_TYPEINGREDIENT" FromRole="TYPEINGREDIENT" ToRole="INGREDIENT" />
         </EntityType>
         <EntityType Name="TYPERECIPE">
           <Key>
             <PropertyRef Name="CODETYPERECIPE" />
           </Key>
-          <Property Name="CODETYPERECIPE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CODETYPERECIPE" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="CAPTION" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="RECIPEs" Relationship="Self.FK_RECIPE_TYPERECIPE" FromRole="TYPERECIPE" ToRole="RECIPE" />
+          <NavigationProperty Name="RECIPEs" Relationship="WeatModel.FK_RECIPE_TYPERECIPE" FromRole="TYPERECIPE" ToRole="RECIPE" />
         </EntityType>
         <Association Name="FK_FRIDGE_PERSON">
-          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
-          <End Role="FRIDGE" Type="Self.FRIDGE" Multiplicity="*" />
+          <End Type="WeatModel.PERSON" Role="PERSON" Multiplicity="1" />
+          <End Type="WeatModel.FRIDGE" Role="FRIDGE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PERSON">
               <PropertyRef Name="IDUSER" />
@@ -473,8 +532,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FRIDGE_TYPEFRIDGE">
-          <End Role="TYPEFRIDGE" Type="Self.TYPEFRIDGE" Multiplicity="1" />
-          <End Role="FRIDGE" Type="Self.FRIDGE" Multiplicity="*" />
+          <End Type="WeatModel.TYPEFRIDGE" Role="TYPEFRIDGE" Multiplicity="1" />
+          <End Type="WeatModel.FRIDGE" Role="FRIDGE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TYPEFRIDGE">
               <PropertyRef Name="CODETYPEFRIDGE" />
@@ -484,33 +543,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FRIGDEINGREDIENT_FRIDGE">
-          <End Role="FRIDGE" Type="Self.FRIDGE" Multiplicity="1" />
-          <End Role="FRIGDEINGREDIENT" Type="Self.FRIGDEINGREDIENT" Multiplicity="*" />
+        <Association Name="FK_FRIDGEINGREDIENT_FRIDGE">
+          <End Type="WeatModel.FRIDGE" Role="FRIDGE" Multiplicity="1" />
+          <End Type="WeatModel.FRIDGEINGREDIENT" Role="FRIDGEINGREDIENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FRIDGE">
               <PropertyRef Name="IDFRIDGE" />
             </Principal>
-            <Dependent Role="FRIGDEINGREDIENT">
+            <Dependent Role="FRIDGEINGREDIENT">
               <PropertyRef Name="IDFRIDGE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FRIGDEINGREDIENT_INGREDIENT">
-          <End Role="INGREDIENT" Type="Self.INGREDIENT" Multiplicity="1" />
-          <End Role="FRIGDEINGREDIENT" Type="Self.FRIGDEINGREDIENT" Multiplicity="*" />
+        <Association Name="FK_FRIDGEINGREDIENT_INGREDIENT">
+          <End Type="WeatModel.INGREDIENT" Role="INGREDIENT" Multiplicity="1" />
+          <End Type="WeatModel.FRIDGEINGREDIENT" Role="FRIDGEINGREDIENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="INGREDIENT">
               <PropertyRef Name="IDINGREDIENT" />
             </Principal>
-            <Dependent Role="FRIGDEINGREDIENT">
+            <Dependent Role="FRIDGEINGREDIENT">
               <PropertyRef Name="IDINGREDIENT" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_INGREDIENT_TYPEINGREDIENT">
-          <End Role="TYPEINGREDIENT" Type="Self.TYPEINGREDIENT" Multiplicity="1" />
-          <End Role="INGREDIENT" Type="Self.INGREDIENT" Multiplicity="*" />
+          <End Type="WeatModel.TYPEINGREDIENT" Role="TYPEINGREDIENT" Multiplicity="1" />
+          <End Type="WeatModel.INGREDIENT" Role="INGREDIENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TYPEINGREDIENT">
               <PropertyRef Name="CODETYPEINGREDIENT" />
@@ -521,8 +580,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PLANNING_PERSON">
-          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
-          <End Role="PLANNING" Type="Self.PLANNING" Multiplicity="*" />
+          <End Type="WeatModel.PERSON" Role="PERSON" Multiplicity="1" />
+          <End Type="WeatModel.PLANNING" Role="PLANNING" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PERSON">
               <PropertyRef Name="IDUSER" />
@@ -533,8 +592,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RECIPE_PERSON">
-          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
-          <End Role="RECIPE" Type="Self.RECIPE" Multiplicity="*" />
+          <End Type="WeatModel.PERSON" Role="PERSON" Multiplicity="1" />
+          <End Type="WeatModel.RECIPE" Role="RECIPE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PERSON">
               <PropertyRef Name="IDUSER" />
@@ -545,8 +604,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PLANNING_RECIPE">
-          <End Role="RECIPE" Type="Self.RECIPE" Multiplicity="1" />
-          <End Role="PLANNING" Type="Self.PLANNING" Multiplicity="*" />
+          <End Type="WeatModel.RECIPE" Role="RECIPE" Multiplicity="1" />
+          <End Type="WeatModel.PLANNING" Role="PLANNING" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RECIPE">
               <PropertyRef Name="IDRECIPE" />
@@ -557,8 +616,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RECIPE_TYPERECIPE">
-          <End Role="TYPERECIPE" Type="Self.TYPERECIPE" Multiplicity="1" />
-          <End Role="RECIPE" Type="Self.RECIPE" Multiplicity="*" />
+          <End Type="WeatModel.TYPERECIPE" Role="TYPERECIPE" Multiplicity="1" />
+          <End Type="WeatModel.RECIPE" Role="RECIPE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TYPERECIPE">
               <PropertyRef Name="CODETYPERECIPE" />
@@ -569,8 +628,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_STEPRECIPE_RECIPE">
-          <End Role="RECIPE" Type="Self.RECIPE" Multiplicity="1" />
-          <End Role="STEPRECIPE" Type="Self.STEPRECIPE" Multiplicity="*" />
+          <End Type="WeatModel.RECIPE" Role="RECIPE" Multiplicity="1" />
+          <End Type="WeatModel.STEPRECIPE" Role="STEPRECIPE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RECIPE">
               <PropertyRef Name="IDRECIPE" />
@@ -581,74 +640,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FAVORITERECIPEUSER">
-          <End Role="PERSON" Type="Self.PERSON" Multiplicity="*" />
-          <End Role="RECIPE" Type="Self.RECIPE" Multiplicity="*" />
+          <End Type="WeatModel.PERSON" Role="PERSON" Multiplicity="*" />
+          <End Type="WeatModel.RECIPE" Role="RECIPE" Multiplicity="*" />
         </Association>
         <Association Name="RECIPEINGREDIENT">
-          <End Role="INGREDIENT" Type="Self.INGREDIENT" Multiplicity="*" />
-          <End Role="RECIPE" Type="Self.RECIPE" Multiplicity="*" />
+          <End Type="WeatModel.INGREDIENT" Role="INGREDIENT" Multiplicity="*" />
+          <End Type="WeatModel.RECIPE" Role="RECIPE" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="WeatEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="FRIDGEs" EntityType="Self.FRIDGE" />
-          <EntitySet Name="FRIGDEINGREDIENTs" EntityType="Self.FRIGDEINGREDIENT" />
-          <EntitySet Name="INGREDIENTs" EntityType="Self.INGREDIENT" />
-          <EntitySet Name="People" EntityType="Self.PERSON" />
-          <EntitySet Name="PLANNINGs" EntityType="Self.PLANNING" />
-          <EntitySet Name="RECIPEs" EntityType="Self.RECIPE" />
-          <EntitySet Name="STEPRECIPEs" EntityType="Self.STEPRECIPE" />
-          <EntitySet Name="TYPEFRIDGEs" EntityType="Self.TYPEFRIDGE" />
-          <EntitySet Name="TYPEINGREDIENTs" EntityType="Self.TYPEINGREDIENT" />
-          <EntitySet Name="TYPERECIPEs" EntityType="Self.TYPERECIPE" />
-          <AssociationSet Name="FK_FRIDGE_PERSON" Association="Self.FK_FRIDGE_PERSON">
-            <End Role="PERSON" EntitySet="People" />
-            <End Role="FRIDGE" EntitySet="FRIDGEs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FRIDGE_TYPEFRIDGE" Association="Self.FK_FRIDGE_TYPEFRIDGE">
-            <End Role="TYPEFRIDGE" EntitySet="TYPEFRIDGEs" />
-            <End Role="FRIDGE" EntitySet="FRIDGEs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FRIGDEINGREDIENT_FRIDGE" Association="Self.FK_FRIGDEINGREDIENT_FRIDGE">
-            <End Role="FRIDGE" EntitySet="FRIDGEs" />
-            <End Role="FRIGDEINGREDIENT" EntitySet="FRIGDEINGREDIENTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FRIGDEINGREDIENT_INGREDIENT" Association="Self.FK_FRIGDEINGREDIENT_INGREDIENT">
-            <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
-            <End Role="FRIGDEINGREDIENT" EntitySet="FRIGDEINGREDIENTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INGREDIENT_TYPEINGREDIENT" Association="Self.FK_INGREDIENT_TYPEINGREDIENT">
-            <End Role="TYPEINGREDIENT" EntitySet="TYPEINGREDIENTs" />
-            <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PLANNING_PERSON" Association="Self.FK_PLANNING_PERSON">
-            <End Role="PERSON" EntitySet="People" />
-            <End Role="PLANNING" EntitySet="PLANNINGs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RECIPE_PERSON" Association="Self.FK_RECIPE_PERSON">
-            <End Role="PERSON" EntitySet="People" />
-            <End Role="RECIPE" EntitySet="RECIPEs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PLANNING_RECIPE" Association="Self.FK_PLANNING_RECIPE">
-            <End Role="RECIPE" EntitySet="RECIPEs" />
-            <End Role="PLANNING" EntitySet="PLANNINGs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RECIPE_TYPERECIPE" Association="Self.FK_RECIPE_TYPERECIPE">
-            <End Role="TYPERECIPE" EntitySet="TYPERECIPEs" />
-            <End Role="RECIPE" EntitySet="RECIPEs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_STEPRECIPE_RECIPE" Association="Self.FK_STEPRECIPE_RECIPE">
-            <End Role="RECIPE" EntitySet="RECIPEs" />
-            <End Role="STEPRECIPE" EntitySet="STEPRECIPEs" />
-          </AssociationSet>
-          <AssociationSet Name="FAVORITERECIPEUSER" Association="Self.FAVORITERECIPEUSER">
-            <End Role="PERSON" EntitySet="People" />
-            <End Role="RECIPE" EntitySet="RECIPEs" />
-          </AssociationSet>
-          <AssociationSet Name="RECIPEINGREDIENT" Association="Self.RECIPEINGREDIENT">
-            <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
-            <End Role="RECIPE" EntitySet="RECIPEs" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -657,110 +656,110 @@
           <EntitySetMapping Name="FRIDGEs">
             <EntityTypeMapping TypeName="WeatModel.FRIDGE">
               <MappingFragment StoreEntitySet="FRIDGE">
-                <ScalarProperty Name="IDFRIDGE" ColumnName="IDFRIDGE" />
-                <ScalarProperty Name="CODETYPEFRIDGE" ColumnName="CODETYPEFRIDGE" />
-                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
                 <ScalarProperty Name="NAMEFRIDGE" ColumnName="NAMEFRIDGE" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+                <ScalarProperty Name="CODETYPEFRIDGE" ColumnName="CODETYPEFRIDGE" />
+                <ScalarProperty Name="IDFRIDGE" ColumnName="IDFRIDGE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FRIGDEINGREDIENTs">
-            <EntityTypeMapping TypeName="WeatModel.FRIGDEINGREDIENT">
-              <MappingFragment StoreEntitySet="FRIGDEINGREDIENT">
-                <ScalarProperty Name="IDINGREDIENT" ColumnName="IDINGREDIENT" />
-                <ScalarProperty Name="IDFRIDGE" ColumnName="IDFRIDGE" />
+          <EntitySetMapping Name="FRIDGEINGREDIENTs">
+            <EntityTypeMapping TypeName="WeatModel.FRIDGEINGREDIENT">
+              <MappingFragment StoreEntitySet="FRIDGEINGREDIENT">
                 <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="IDFRIDGE" ColumnName="IDFRIDGE" />
+                <ScalarProperty Name="IDINGREDIENT" ColumnName="IDINGREDIENT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="INGREDIENTs">
             <EntityTypeMapping TypeName="WeatModel.INGREDIENT">
               <MappingFragment StoreEntitySet="INGREDIENT">
-                <ScalarProperty Name="IDINGREDIENT" ColumnName="IDINGREDIENT" />
-                <ScalarProperty Name="CODETYPEINGREDIENT" ColumnName="CODETYPEINGREDIENT" />
-                <ScalarProperty Name="URLIMAGE" ColumnName="URLIMAGE" />
                 <ScalarProperty Name="NAMEINGREDIENT" ColumnName="NAMEINGREDIENT" />
+                <ScalarProperty Name="URLIMAGE" ColumnName="URLIMAGE" />
+                <ScalarProperty Name="CODETYPEINGREDIENT" ColumnName="CODETYPEINGREDIENT" />
+                <ScalarProperty Name="IDINGREDIENT" ColumnName="IDINGREDIENT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="WeatModel.PERSON">
               <MappingFragment StoreEntitySet="PERSON">
-                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
-                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
-                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
-                <ScalarProperty Name="PSEUDO" ColumnName="PSEUDO" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="PSEUDO" ColumnName="PSEUDO" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PLANNINGs">
             <EntityTypeMapping TypeName="WeatModel.PLANNING">
               <MappingFragment StoreEntitySet="PLANNING">
-                <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
-                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
                 <ScalarProperty Name="DATETIME" ColumnName="DATETIME" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+                <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RECIPEs">
             <EntityTypeMapping TypeName="WeatModel.RECIPE">
               <MappingFragment StoreEntitySet="RECIPE">
-                <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
-                <ScalarProperty Name="CODETYPERECIPE" ColumnName="CODETYPERECIPE" />
-                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
                 <ScalarProperty Name="NAMERECIPE" ColumnName="NAMERECIPE" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+                <ScalarProperty Name="CODETYPERECIPE" ColumnName="CODETYPERECIPE" />
+                <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="STEPRECIPEs">
             <EntityTypeMapping TypeName="WeatModel.STEPRECIPE">
               <MappingFragment StoreEntitySet="STEPRECIPE">
-                <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
-                <ScalarProperty Name="IDSTEPRECIPE" ColumnName="IDSTEPRECIPE" />
-                <ScalarProperty Name="TIMEPERIOD" ColumnName="TIMEPERIOD" />
                 <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+                <ScalarProperty Name="TIMEPERIOD" ColumnName="TIMEPERIOD" />
+                <ScalarProperty Name="IDSTEPRECIPE" ColumnName="IDSTEPRECIPE" />
+                <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TYPEFRIDGEs">
             <EntityTypeMapping TypeName="WeatModel.TYPEFRIDGE">
               <MappingFragment StoreEntitySet="TYPEFRIDGE">
-                <ScalarProperty Name="CODETYPEFRIDGE" ColumnName="CODETYPEFRIDGE" />
                 <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
+                <ScalarProperty Name="CODETYPEFRIDGE" ColumnName="CODETYPEFRIDGE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TYPEINGREDIENTs">
             <EntityTypeMapping TypeName="WeatModel.TYPEINGREDIENT">
               <MappingFragment StoreEntitySet="TYPEINGREDIENT">
-                <ScalarProperty Name="CODETYPEINGREDIENT" ColumnName="CODETYPEINGREDIENT" />
                 <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
+                <ScalarProperty Name="CODETYPEINGREDIENT" ColumnName="CODETYPEINGREDIENT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TYPERECIPEs">
             <EntityTypeMapping TypeName="WeatModel.TYPERECIPE">
               <MappingFragment StoreEntitySet="TYPERECIPE">
-                <ScalarProperty Name="CODETYPERECIPE" ColumnName="CODETYPERECIPE" />
                 <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
+                <ScalarProperty Name="CODETYPERECIPE" ColumnName="CODETYPERECIPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="FAVORITERECIPEUSER" TypeName="WeatModel.FAVORITERECIPEUSER" StoreEntitySet="FAVORITERECIPEUSER">
+            <EndProperty Name="RECIPE">
+              <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
+            </EndProperty>
             <EndProperty Name="PERSON">
               <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
             </EndProperty>
-            <EndProperty Name="RECIPE">
-              <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
-            </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="RECIPEINGREDIENT" TypeName="WeatModel.RECIPEINGREDIENT" StoreEntitySet="RECIPEINGREDIENT">
-            <EndProperty Name="INGREDIENT">
-              <ScalarProperty Name="IDINGREDIENT" ColumnName="IDINGREDIENT" />
-            </EndProperty>
             <EndProperty Name="RECIPE">
               <ScalarProperty Name="IDRECIPE" ColumnName="IDRECIPE" />
+            </EndProperty>
+            <EndProperty Name="INGREDIENT">
+              <ScalarProperty Name="IDINGREDIENT" ColumnName="IDINGREDIENT" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

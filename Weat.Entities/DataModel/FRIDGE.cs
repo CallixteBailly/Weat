@@ -17,7 +17,7 @@ namespace Weat.Entities.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FRIDGE()
         {
-            this.FRIGDEINGREDIENTs = new HashSet<FRIGDEINGREDIENT>();
+            this.FRIDGEINGREDIENTs = new HashSet<FRIDGEINGREDIENT>();
         }
     
         public short IDFRIDGE { get; set; }
@@ -28,6 +28,6 @@ namespace Weat.Entities.DataModel
         public virtual PERSON PERSON { get; set; }
         public virtual TYPEFRIDGE TYPEFRIDGE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FRIGDEINGREDIENT> FRIGDEINGREDIENTs { get; set; }
+        public virtual ICollection<FRIDGEINGREDIENT> FRIDGEINGREDIENTs { get; set; }
     }
 }

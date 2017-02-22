@@ -19,7 +19,10 @@ namespace Weat.Business.User.Impl
         {
             throw new NotImplementedException();
         }
-
+        public Task<List<PERSON>> GetAll()
+        {
+            return Task.FromResult(Manager.GetAll<PERSON>().ToList());
+        }
         public async Task<Entities.DataModel.PERSON> GetById(int id)
         {
             Entities.DataModel.PERSON person = await Manager.SingleAsync<Entities.DataModel.PERSON>(p => p.IDUSER == id);

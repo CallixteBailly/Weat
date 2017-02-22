@@ -17,7 +17,7 @@ namespace Weat.Entities.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public INGREDIENT()
         {
-            this.FRIGDEINGREDIENTs = new HashSet<FRIGDEINGREDIENT>();
+            this.FRIDGEINGREDIENTs = new HashSet<FRIDGEINGREDIENT>();
             this.RECIPEs = new HashSet<RECIPE>();
         }
     
@@ -27,7 +27,7 @@ namespace Weat.Entities.DataModel
         public string NAMEINGREDIENT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FRIGDEINGREDIENT> FRIGDEINGREDIENTs { get; set; }
+        public virtual ICollection<FRIDGEINGREDIENT> FRIDGEINGREDIENTs { get; set; }
         public virtual TYPEINGREDIENT TYPEINGREDIENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RECIPE> RECIPEs { get; set; }

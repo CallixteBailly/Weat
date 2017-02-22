@@ -2,124 +2,105 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Description;
 using Weat.Dal.SqlServer.DataModel;
 using Weat.Entities.DataModel;
 
 namespace Weat.UI.Controllers
 {
-    public class INGREDIENTsController : Controller
+    public class IngredientsController : ApiController
     {
         private WeatEntities db = new WeatEntities();
 
-        // GET: INGREDIENTs
-        public async Task<ActionResult> Index()
+        // GET: api/Ingredients
+        public IQueryable<INGREDIENT> GetINGREDIENTs()
         {
-            var iNGREDIENTs = db.INGREDIENTs.Include(i => i.TYPEINGREDIENT);
-            return View(await iNGREDIENTs.ToListAsync());
+            return db.INGREDIENTs;
         }
 
-        // GET: INGREDIENTs/Details/5
-        public async Task<ActionResult> Details(short? id)
+        // GET: api/Ingredients/5
+        [ResponseType(typeof(INGREDIENT))]
+        public async Task<IHttpActionResult> GetINGREDIENT(short id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             INGREDIENT iNGREDIENT = await db.INGREDIENTs.FindAsync(id);
             if (iNGREDIENT == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(iNGREDIENT);
+
+            return Ok(iNGREDIENT);
         }
 
-        // GET: INGREDIENTs/Create
-        public ActionResult Create()
+        // PUT: api/Ingredients/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutINGREDIENT(short id, INGREDIENT iNGREDIENT)
         {
-            ViewBag.CODETYPEINGREDIENT = new SelectList(db.TYPEINGREDIENTs, "CODETYPEINGREDIENT", "CAPTION");
-            return View();
-        }
-
-        // POST: INGREDIENTs/Create
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IDINGREDIENT,CODETYPEINGREDIENT,URLIMAGE,NAMEINGREDIENT")] INGREDIENT iNGREDIENT)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.INGREDIENTs.Add(iNGREDIENT);
+                return BadRequest(ModelState);
+            }
+
+            if (id != iNGREDIENT.IDINGREDIENT)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(iNGREDIENT).State = EntityState.Modified;
+
+            try
+            {
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!INGREDIENTExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            ViewBag.CODETYPEINGREDIENT = new SelectList(db.TYPEINGREDIENTs, "CODETYPEINGREDIENT", "CAPTION", iNGREDIENT.CODETYPEINGREDIENT);
-            return View(iNGREDIENT);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: INGREDIENTs/Edit/5
-        public async Task<ActionResult> Edit(short? id)
+        // POST: api/Ingredients
+        [ResponseType(typeof(INGREDIENT))]
+        public async Task<IHttpActionResult> PostINGREDIENT(INGREDIENT iNGREDIENT)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest(ModelState);
             }
+
+            db.INGREDIENTs.Add(iNGREDIENT);
+            await db.SaveChangesAsync();
+
+            return CreatedAtRoute("DefaultApi", new { id = iNGREDIENT.IDINGREDIENT }, iNGREDIENT);
+        }
+
+        // DELETE: api/Ingredients/5
+        [ResponseType(typeof(INGREDIENT))]
+        public async Task<IHttpActionResult> DeleteINGREDIENT(short id)
+        {
             INGREDIENT iNGREDIENT = await db.INGREDIENTs.FindAsync(id);
             if (iNGREDIENT == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            ViewBag.CODETYPEINGREDIENT = new SelectList(db.TYPEINGREDIENTs, "CODETYPEINGREDIENT", "CAPTION", iNGREDIENT.CODETYPEINGREDIENT);
-            return View(iNGREDIENT);
-        }
 
-        // POST: INGREDIENTs/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IDINGREDIENT,CODETYPEINGREDIENT,URLIMAGE,NAMEINGREDIENT")] INGREDIENT iNGREDIENT)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(iNGREDIENT).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CODETYPEINGREDIENT = new SelectList(db.TYPEINGREDIENTs, "CODETYPEINGREDIENT", "CAPTION", iNGREDIENT.CODETYPEINGREDIENT);
-            return View(iNGREDIENT);
-        }
-
-        // GET: INGREDIENTs/Delete/5
-        public async Task<ActionResult> Delete(short? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            INGREDIENT iNGREDIENT = await db.INGREDIENTs.FindAsync(id);
-            if (iNGREDIENT == null)
-            {
-                return HttpNotFound();
-            }
-            return View(iNGREDIENT);
-        }
-
-        // POST: INGREDIENTs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(short id)
-        {
-            INGREDIENT iNGREDIENT = await db.INGREDIENTs.FindAsync(id);
             db.INGREDIENTs.Remove(iNGREDIENT);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            return Ok(iNGREDIENT);
         }
 
         protected override void Dispose(bool disposing)
@@ -129,6 +110,11 @@ namespace Weat.UI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool INGREDIENTExists(short id)
+        {
+            return db.INGREDIENTs.Count(e => e.IDINGREDIENT == id) > 0;
         }
     }
 }

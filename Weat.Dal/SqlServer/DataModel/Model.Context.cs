@@ -9,10 +9,10 @@
 
 namespace Weat.Dal.SqlServer.DataModel
 {
+    using Entities.DataModel;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using Entities.DataModel;
 
     public partial class WeatEntities : DbContext
     {
@@ -27,7 +27,7 @@ namespace Weat.Dal.SqlServer.DataModel
         }
     
         public virtual DbSet<FRIDGE> FRIDGEs { get; set; }
-        public virtual DbSet<FRIGDEINGREDIENT> FRIGDEINGREDIENTs { get; set; }
+        public virtual DbSet<FRIDGEINGREDIENT> FRIDGEINGREDIENTs { get; set; }
         public virtual DbSet<INGREDIENT> INGREDIENTs { get; set; }
         public virtual DbSet<PERSON> People { get; set; }
         public virtual DbSet<PLANNING> PLANNINGs { get; set; }

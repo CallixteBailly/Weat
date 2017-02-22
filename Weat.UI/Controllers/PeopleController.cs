@@ -2,119 +2,109 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Description;
+using Weat.Business;
+using Weat.Business.User;
 using Weat.Dal.SqlServer.DataModel;
 using Weat.Entities.DataModel;
 
 namespace Weat.UI.Controllers
 {
-    public class PeopleController : Controller
+    public class PeopleController : ApiController
     {
+        private IUserService UserService => UnityConfig.Resolve<IUserService>();
         private WeatEntities db = new WeatEntities();
 
-        // GET: People
-        public async Task<ActionResult> Index()
+        // GET: api/People
+        public async Task<List<PERSON>> GetPeople()
         {
-            return View(await db.People.ToListAsync());
+            List<PERSON> p = await UserService.GetAll();
+            return  await Task.FromResult(p);
         }
 
-        // GET: People/Details/5
-        public async Task<ActionResult> Details(short? id)
+        // GET: api/People/5
+        [ResponseType(typeof(PERSON))]
+        public async Task<IHttpActionResult> GetPERSON(short id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             PERSON pERSON = await db.People.FindAsync(id);
             if (pERSON == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(pERSON);
+
+            return Ok(pERSON);
         }
 
-        // GET: People/Create
-        public ActionResult Create()
+        // PUT: api/People/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutPERSON(short id, PERSON pERSON)
         {
-            return View();
-        }
-
-        // POST: People/Create
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IDUSER,FIRSTNAME,LASTNAME,PSEUDO,PASSWORD")] PERSON pERSON)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.People.Add(pERSON);
+                return BadRequest(ModelState);
+            }
+
+            if (id != pERSON.IDUSER)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(pERSON).State = EntityState.Modified;
+
+            try
+            {
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PERSONExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return View(pERSON);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: People/Edit/5
-        public async Task<ActionResult> Edit(short? id)
+        // POST: api/People
+        [ResponseType(typeof(PERSON))]
+        public async Task<IHttpActionResult> PostPERSON(PERSON pERSON)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest(ModelState);
             }
+
+            db.People.Add(pERSON);
+            await db.SaveChangesAsync();
+
+            return CreatedAtRoute("DefaultApi", new { id = pERSON.IDUSER }, pERSON);
+        }
+
+        // DELETE: api/People/5
+        [ResponseType(typeof(PERSON))]
+        public async Task<IHttpActionResult> DeletePERSON(short id)
+        {
             PERSON pERSON = await db.People.FindAsync(id);
             if (pERSON == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(pERSON);
-        }
 
-        // POST: People/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IDUSER,FIRSTNAME,LASTNAME,PSEUDO,PASSWORD")] PERSON pERSON)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(pERSON).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(pERSON);
-        }
-
-        // GET: People/Delete/5
-        public async Task<ActionResult> Delete(short? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PERSON pERSON = await db.People.FindAsync(id);
-            if (pERSON == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pERSON);
-        }
-
-        // POST: People/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(short id)
-        {
-            PERSON pERSON = await db.People.FindAsync(id);
             db.People.Remove(pERSON);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            return Ok(pERSON);
         }
 
         protected override void Dispose(bool disposing)
@@ -124,6 +114,11 @@ namespace Weat.UI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool PERSONExists(short id)
+        {
+            return db.People.Count(e => e.IDUSER == id) > 0;
         }
     }
 }

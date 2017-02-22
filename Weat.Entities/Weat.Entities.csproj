@@ -58,7 +58,7 @@
     <Compile Include="DataModel\FRIDGE.cs">
       <DependentUpon>WeatDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\FRIGDEINGREDIENT.cs">
+    <Compile Include="DataModel\FRIDGEINGREDIENT.cs">
       <DependentUpon>WeatDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\INGREDIENT.cs">
