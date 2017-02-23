@@ -21,12 +21,24 @@ namespace Weat.Business.User.Impl
         }
         public Task<List<PERSON>> GetAll()
         {
-            return Task.FromResult(Manager.GetAll<PERSON>().ToList());
+            List<PERSON> persons = Manager.GetAll<PERSON>().ToList();
+            return Task.FromResult(persons);
         }
-        public async Task<Entities.DataModel.PERSON> GetById(int id)
+        public async Task<PERSON> GetById(int id)
         {
-            Entities.DataModel.PERSON person = await Manager.SingleAsync<Entities.DataModel.PERSON>(p => p.IDUSER == id);
+            PERSON person = await Manager.SingleAsync<PERSON>(p => p.IDUSER == id);
+
             return await Task.FromResult(person);
+        }
+        public async Task addUserAsync(PERSON p)
+        {
+            await Manager.AddAsync<PERSON>(p);
+            await Manager.SaveChangesAsync();
+        }
+        public async Task DeleteByIdAsync(short id)
+        {
+            Manager.DeleteById(id);
+            await Manager.SaveChangesAsync();
         }
 
         public override Task<List<PERSON>> ReadAsync(BaseCriteria criteria)
@@ -37,6 +49,36 @@ namespace Weat.Business.User.Impl
         public override Task SaveAsync(PERSON entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task UpdatePerson(PERSON pERSON, short id)
+        {
+            PERSON person = await Manager.SingleAsync<PERSON>(p => p.IDUSER == id);
+            person = pERSON;
+            await Manager.SaveChangesAsync();
+        }
+        public async Task<bool> CheckPeople(PERSON p)
+        {
+            bool statusCheck = false;
+            PERSON personDb = await GetById(p.IDUSER);
+            if (personDb.PSEUDO == p.PSEUDO && personDb.PASSWORD == p.PASSWORD)
+            {
+                statusCheck = true ;
+            }
+            return await Task.FromResult(statusCheck);
+        }
+
+        public async void UpdatePasswordPersonAsync(PERSON p)
+        {
+            PERSON person = await this.GetById(p.IDUSER);
+            person.PASSWORD = p.PASSWORD;
+            await Manager.SaveChangesAsync();
+        }
+
+        public Task<PERSON> GetByName(string userName)
+        {
+            PERSON person = Manager.Find<PERSON>(p => p.Mail == userName).First();
+            return Task.FromResult(person);
         }
     }
 }

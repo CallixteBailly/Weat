@@ -1,4 +1,4 @@
-﻿// La génération de code T4 est activée pour le modèle 'C:\Users\KaliTii\Documents\Visual Studio 2015\Projects\Weat\Weat.Dal\SqlServer\DataModel\Model.edmx'. 
+﻿// La génération de code T4 est activée pour le modèle 'C:\Users\KaliTii\Documents\Repos\Weat\Weat.Dal\SqlServer\DataModel\Model.edmx'. 
 // Pour activer la génération de code héritée, définissez la valeur de la propriété
 // du concepteur 'Stratégie de génération de code' sur 'ObjectContext hérité'. Cette propriété est disponible dans la fenêtre Propriétés lorsque le modèle
 //  est ouvert dans le concepteur.

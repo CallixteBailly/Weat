@@ -10,6 +10,7 @@ using Weat.Business.User;
 using Weat.Business;
 using Weat.Entities.DataModel;
 using Microsoft.Practices.Unity;
+using Weat.UI.Models.Transverse;
 
 namespace Weat.UI.Controllers
 {
@@ -156,15 +157,14 @@ namespace Weat.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new WeatUser
                 {
                     UserName = string.Format("{0} {1}", model.FirstName, model.LastName),
-                    Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    BirthDate = model.BirthDate,
+                    Mail = model.Email
                 };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -187,7 +187,7 @@ namespace Weat.UI.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public virtual async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public virtual async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
             if (userId == null || code == null)
             {
@@ -361,41 +361,41 @@ namespace Weat.UI.Controllers
 
         //
         // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public virtual async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Manage");
-            }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public virtual async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Manage");
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                // Obtenez des informations sur l’utilisateur auprès du fournisseur de connexions externe
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    return View("ExternalLoginFailure");
-                }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
-            }
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Obtenez des informations sur l’utilisateur auprès du fournisseur de connexions externe
+        //        var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+        //        if (info == null)
+        //        {
+        //            return View("ExternalLoginFailure");
+        //        }
+        //        var user = new Weat { UserName = model.Email, Email = model.Email };
+        //        var result = await UserManager.CreateAsync(user);
+        //        if (result.Succeeded)
+        //        {
+        //            result = await UserManager.AddLoginAsync(user.Id, info.Login);
+        //            if (result.Succeeded)
+        //            {
+        //                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //                return RedirectToLocal(returnUrl);
+        //            }
+        //        }
+        //        AddErrors(result);
+        //    }
 
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
+        //    ViewBag.ReturnUrl = returnUrl;
+        //    return View(model);
+        //}
 
         //
         // POST: /Account/LogOff

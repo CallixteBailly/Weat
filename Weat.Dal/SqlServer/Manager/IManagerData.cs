@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Weat.Entities.DataModel;
 
 namespace Weak.Dal.SqlServer.Manager
 {
@@ -26,6 +27,7 @@ namespace Weak.Dal.SqlServer.Manager
 
         #region async
         IEnumerable<TEntity> WhereAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
+        void DeleteById(short id);
         Task<TEntity> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
         Task<TEntity> SingleOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
         Task<TEntity> FirstAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;

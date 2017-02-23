@@ -14,6 +14,7 @@ using LinqKit;
 using Weat.Dal.SqlServer.DataModel;
 using System.Configuration;
 using Microsoft.Practices.Unity;
+using Weat.Entities.DataModel;
 
 namespace Weak.Dal.SqlServer.Manager
 {
@@ -635,6 +636,14 @@ namespace Weak.Dal.SqlServer.Manager
                     throw new Exception(message);
                 }
             }
+        }
+
+        public void DeleteById(short id)
+        {
+            PERSON entity = (PERSON)context.People.Select(p => p.IDUSER == id);
+            //context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
+            context.Set<PERSON>().Remove(entity);
+
         }
     }
 }

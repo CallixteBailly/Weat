@@ -26,6 +26,12 @@ namespace Weat.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                        "~/Scripts/angular.min.js",
+                        "~/Scripts/angular-route.min.js",
+                        "~/Angular/app.js",
+                        "~/Angular/apiService.js",
+                        "~/Angular/Controller/mainController.js"));
         }
     }
 }

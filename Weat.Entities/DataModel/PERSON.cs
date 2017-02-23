@@ -28,6 +28,7 @@ namespace Weat.Entities.DataModel
         public string LASTNAME { get; set; }
         public string PSEUDO { get; set; }
         public string PASSWORD { get; set; }
+        public string Mail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FRIDGE> FRIDGEs { get; set; }

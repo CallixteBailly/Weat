@@ -102,13 +102,6 @@ namespace Weat.UI.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallback);
             return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginConfirmation);
-            return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public AccountController Actions { get { return MVC.Account; } }
@@ -136,7 +129,6 @@ namespace Weat.UI.Controllers
             public readonly string ExternalLogin = "ExternalLogin";
             public readonly string SendCode = "SendCode";
             public readonly string ExternalLoginCallback = "ExternalLoginCallback";
-            public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
             public readonly string LogOff = "LogOff";
             public readonly string ExternalLoginFailure = "ExternalLoginFailure";
         }
@@ -155,7 +147,6 @@ namespace Weat.UI.Controllers
             public const string ExternalLogin = "ExternalLogin";
             public const string SendCode = "SendCode";
             public const string ExternalLoginCallback = "ExternalLoginCallback";
-            public const string ExternalLoginConfirmation = "ExternalLoginConfirmation";
             public const string LogOff = "LogOff";
             public const string ExternalLoginFailure = "ExternalLoginFailure";
         }
@@ -240,15 +231,6 @@ namespace Weat.UI.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ExternalLoginCallback
         {
-            public readonly string returnUrl = "returnUrl";
-        }
-        static readonly ActionParamsClass_ExternalLoginConfirmation s_params_ExternalLoginConfirmation = new ActionParamsClass_ExternalLoginConfirmation();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ExternalLoginConfirmation ExternalLoginConfirmationParams { get { return s_params_ExternalLoginConfirmation; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ExternalLoginConfirmation
-        {
-            public readonly string model = "model";
             public readonly string returnUrl = "returnUrl";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -369,10 +351,10 @@ namespace Weat.UI.Controllers
         }
 
         [NonAction]
-        partial void ConfirmEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string userId, string code);
+        partial void ConfirmEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int userId, string code);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ConfirmEmail(string userId, string code)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ConfirmEmail(int userId, string code)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ConfirmEmail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userId", userId);
@@ -497,19 +479,6 @@ namespace Weat.UI.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallback);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
             ExternalLoginCallbackOverride(callInfo, returnUrl);
-            return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
-        }
-
-        [NonAction]
-        partial void ExternalLoginConfirmationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Weat.UI.Models.ExternalLoginConfirmationViewModel model, string returnUrl);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation(Weat.UI.Models.ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginConfirmation);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ExternalLoginConfirmationOverride(callInfo, model, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
         }
 

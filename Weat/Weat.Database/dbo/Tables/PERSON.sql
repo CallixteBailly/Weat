@@ -9,10 +9,11 @@
 create table PERSON
   (
      IDUSER smallint identity (1, 1)   ,
-     FIRSTNAME varchar(32)  null  ,
-     LASTNAME varchar(32)  null  ,
-     PSEUDO varchar(32)  null  ,
-     PASSWORD varchar(128)  null  
+     FIRSTNAME varchar(32)  NOT null  ,
+     LASTNAME varchar(32)  NOT null  ,
+     PSEUDO varchar(32)  NOT null  ,
+     PASSWORD varchar(128)  NOT null  
      ,
-     constraint PK_PERSON primary key (IDUSER)
+     [Mail] VARCHAR(50) NOT NULL, 
+    constraint PK_PERSON primary key (IDUSER)
   )

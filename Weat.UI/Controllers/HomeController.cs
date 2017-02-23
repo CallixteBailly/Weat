@@ -12,6 +12,10 @@ namespace Weat.UI.Controllers
         {
             return View();
         }
+        public virtual ActionResult Person()
+        {
+            return View(MVC.Person.Views.PersonView);
+        }
 
         public virtual ActionResult About()
         {

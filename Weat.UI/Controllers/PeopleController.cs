@@ -22,28 +22,39 @@ namespace Weat.UI.Controllers
         private WeatEntities db = new WeatEntities();
 
         // GET: api/People
-        public async Task<List<PERSON>> GetPeople()
+        public async Task<List<PERSON>> GetPeople() //GET ALL PERSON
         {
             List<PERSON> p = await UserService.GetAll();
+
             return  await Task.FromResult(p);
+        }
+        // GET: api/People
+        public async Task<IHttpActionResult> CheckPeople(PERSON p) //Check PERSON For Account
+        {
+            bool check = await UserService.CheckPeople(p);
+            if (!check)
+            {
+                return NotFound();
+            }
+            return Ok(p);
         }
 
         // GET: api/People/5
         [ResponseType(typeof(PERSON))]
-        public async Task<IHttpActionResult> GetPERSON(short id)
+        public async Task<IHttpActionResult> GetPERSON(short id) //GET PERSON BY ID
         {
-            PERSON pERSON = await db.People.FindAsync(id);
-            if (pERSON == null)
+            PERSON p = await UserService.GetById(id);
+
+            if (p== null)
             {
                 return NotFound();
             }
-
-            return Ok(pERSON);
+            return Ok(p);
         }
 
         // PUT: api/People/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPERSON(short id, PERSON pERSON)
+        public async Task<IHttpActionResult> PutPERSON(short id, PERSON pERSON) //UPDATE PERSON
         {
             if (!ModelState.IsValid)
             {
@@ -55,7 +66,8 @@ namespace Weat.UI.Controllers
                 return BadRequest();
             }
 
-            db.Entry(pERSON).State = EntityState.Modified;
+            await UserService.UpdatePerson(pERSON, id);
+
 
             try
             {
@@ -75,36 +87,31 @@ namespace Weat.UI.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
         // POST: api/People
         [ResponseType(typeof(PERSON))]
-        public async Task<IHttpActionResult> PostPERSON(PERSON pERSON)
+        public async Task<IHttpActionResult> PostPERSON(PERSON pERSON) //ADD PERSON
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            db.People.Add(pERSON);
-            await db.SaveChangesAsync();
+            await UserService.addUserAsync(pERSON);
 
             return CreatedAtRoute("DefaultApi", new { id = pERSON.IDUSER }, pERSON);
         }
 
         // DELETE: api/People/5
         [ResponseType(typeof(PERSON))]
-        public async Task<IHttpActionResult> DeletePERSON(short id)
+        public async Task<IHttpActionResult> DeletePERSON(short id) //DELETE PERSON
         {
-            PERSON pERSON = await db.People.FindAsync(id);
-            if (pERSON == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            db.People.Remove(pERSON);
-            await db.SaveChangesAsync();
+            await UserService.DeleteByIdAsync(id);
 
-            return Ok(pERSON);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

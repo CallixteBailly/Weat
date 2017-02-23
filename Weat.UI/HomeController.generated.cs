@@ -76,6 +76,7 @@ namespace Weat.UI.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Person = "Person";
             public readonly string About = "About";
             public readonly string Contact = "Contact";
         }
@@ -84,6 +85,7 @@ namespace Weat.UI.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Person = "Person";
             public const string About = "About";
             public const string Contact = "Contact";
         }
@@ -122,6 +124,17 @@ namespace Weat.UI.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void PersonOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Person()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Person);
+            PersonOverride(callInfo);
             return callInfo;
         }
 

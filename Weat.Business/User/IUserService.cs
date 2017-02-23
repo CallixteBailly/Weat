@@ -6,9 +6,15 @@ using Weat.Entities.DataModel;
 
 namespace Weat.Business.User
 {
-    public interface IUserService 
+    public interface IUserService : IBaseService <PERSON,UserCriteria>
     {
         Task<PERSON> GetById(int id);
         Task<List<PERSON>> GetAll();
+        Task addUserAsync(PERSON p);
+        Task DeleteByIdAsync(short id);
+        Task UpdatePerson(PERSON pERSON,short id);
+        Task<bool> CheckPeople(PERSON p);
+        void UpdatePasswordPersonAsync(PERSON p);
+        Task<PERSON> GetByName(string userName);
     }
 }

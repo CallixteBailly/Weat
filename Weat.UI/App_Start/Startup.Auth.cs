@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Weat.UI.Models;
+using Weat.UI.Identity;
 
 namespace Weat.UI
 {
@@ -15,10 +16,12 @@ namespace Weat.UI
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configurer le contexte de base de données, le gestionnaire des utilisateurs et le gestionnaire des connexions pour utiliser une instance unique par demande
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
-
+            //app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(() => new ApplicationUserManager(new WeatUserStore()));
+            app.CreatePerOwinContext<ApplicationSignInManager>(
+                (options, context) =>
+                    new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(),
+                        context.Authentication));
             // Autoriser l’application à utiliser un cookie pour stocker des informations pour l’utilisateur connecté
             // et pour utiliser un cookie à des fins de stockage temporaire des informations sur la connexion utilisateur avec un fournisseur de connexion tiers
             // Configurer le cookie de connexion
@@ -30,9 +33,9 @@ namespace Weat.UI
                 {
                     // Permet à l'application de valider le timbre de sécurité quand l'utilisateur se connecte.
                     // Cette fonction de sécurité est utilisée quand vous changez un mot de passe ou ajoutez une connexion externe à votre compte.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                        validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                    //OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                    //    validateInterval: TimeSpan.FromMinutes(30),
+                    //    regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });            
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
