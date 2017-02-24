@@ -11,11 +11,12 @@ using Weat.Business;
 using Weat.Entities.DataModel;
 using Microsoft.Practices.Unity;
 using Weat.UI.Models.Transverse;
+using Weat.UI.Controllers.Transverse;
 
 namespace Weat.UI.Controllers
 {
     [Authorize]
-    public partial class AccountController : Controller
+    public partial class AccountController : BaseController
     {
         [Dependency]
         private IUserService UserService => UnityConfig.Resolve<IUserService>();

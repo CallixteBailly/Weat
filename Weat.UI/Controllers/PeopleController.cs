@@ -13,6 +13,7 @@ using Weat.Business;
 using Weat.Business.User;
 using Weat.Dal.SqlServer.DataModel;
 using Weat.Entities.DataModel;
+using Weat.UI.Controllers.Transverse;
 
 namespace Weat.UI.Controllers
 {
