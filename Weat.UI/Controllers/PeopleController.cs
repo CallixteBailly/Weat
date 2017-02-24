@@ -56,22 +56,20 @@ namespace Weat.UI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutPERSON(short id, PERSON pERSON) //UPDATE PERSON
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != pERSON.IDUSER)
-            {
-                return BadRequest();
-            }
-
-            await UserService.UpdatePerson(pERSON, id);
-
 
             try
             {
-                await db.SaveChangesAsync();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                if (id == 0)
+                {
+                    return BadRequest();
+                }
+
+                await UserService.UpdatePerson(pERSON, id);
             }
             catch (DbUpdateConcurrencyException)
             {

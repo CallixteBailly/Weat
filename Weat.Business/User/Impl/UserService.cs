@@ -54,7 +54,10 @@ namespace Weat.Business.User.Impl
         public async Task UpdatePerson(PERSON pERSON, short id)
         {
             PERSON person = await Manager.SingleAsync<PERSON>(p => p.IDUSER == id);
-            person = pERSON;
+            person.FIRSTNAME = pERSON.FIRSTNAME;
+            person.LASTNAME = pERSON.LASTNAME;
+            person.Mail = pERSON.Mail;
+            person.PSEUDO = pERSON.PSEUDO;
             await Manager.SaveChangesAsync();
         }
         public async Task<bool> CheckPeople(PERSON p)

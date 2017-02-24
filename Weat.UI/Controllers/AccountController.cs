@@ -143,7 +143,7 @@ namespace Weat.UI.Controllers
         [AllowAnonymous]
         public virtual async Task<ActionResult> Register()
         {
-            PERSON person = await UserService.GetById(1);
+            //PERSON person = await UserService.GetById(1);
 
             return View();
         }
@@ -162,7 +162,7 @@ namespace Weat.UI.Controllers
                     UserName = string.Format("{0} {1}", model.FirstName, model.LastName),
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Mail = model.Email
+                    Mail = model.Email,
                 };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

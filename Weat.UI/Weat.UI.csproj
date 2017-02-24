@@ -1152,6 +1152,10 @@
       <Project>{0AB48AE2-612E-4C5C-B2F2-3738C788BAC4}</Project>
       <Name>Weat.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Weat.Constant\Weat.Constant.csproj">
+      <Project>{a59a55e1-aea0-4fb5-81c7-46f54f67bb85}</Project>
+      <Name>Weat.Constant</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Weat.Dal\Weat.Dal.csproj">
       <Project>{6730F747-0E68-48C9-8C10-1C63B786E966}</Project>
       <Name>Weat.Dal</Name>
