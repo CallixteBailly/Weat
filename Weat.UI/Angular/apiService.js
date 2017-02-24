@@ -6,7 +6,7 @@
     this.getPersonById = function (id) {
         return $http.get(url + 'api/People/' + id);
     }
-    this.setById = function (person) {
+    this.setPerson = function (person) {
         return $http.put(url + 'api/People/' + person.Id, person);
     }
 })

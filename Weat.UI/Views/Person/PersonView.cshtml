@@ -2,10 +2,10 @@
 @{
     ViewBag.Title = "PersonView";
 }
-<div ng-app="app" ng-controller="mainController">
-    <h2>PersonView</h2>
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
+<div ng-app="app">
+    <div ng-controller="mainController">
+        <h2 ng-init="personUpdate.Id = @Model.Id;">PersonView</h2>
+        {{personUpdate.Id}}
         @Html.AntiForgeryToken()
         <div class="form-group">
             @Html.LabelFor(m => m.Mail, new { @class = "col-md-2 control-label" })
@@ -42,26 +42,15 @@
                 @*@Html.TextBoxFor(m => m.Password, new { @class = "form-control" })*@
             </div>
         </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="S’inscrire" />
+                <input type="submit" class="btn btn-default" ng-click ="set(personUpdate)" value="S’inscrire" />
             </div>
         </div>
-    }
+        {{1+1}}
+        {{personUpdate.Pseudo}}
+    </div>
+    
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-
-<body >
-    <div class="container">
-        <div ng-controller="mainController">
-            <div ng-repeat="p in persons">
-                {{p.FIRSTNAME}}
-                {{p.LASTNAME}}
-                {{p.PSEUDO}}
-            </div>
-        </div>
-    </div>
-</body>

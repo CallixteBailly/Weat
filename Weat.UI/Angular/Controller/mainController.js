@@ -1,7 +1,5 @@
 ﻿var mainController = function ($scope, $http,apiService) {
     var id = $scope.id;
-    var personUpdate;
-    getPerson();
 
     function getPerson() {
         apiService.getPerson().then(function (d) {
@@ -13,12 +11,12 @@
             return d.data;
         })
     }
-    function set(personUpdate) {
-        apiService.setPerson(person).then(function (d) {
+    $scope.set = function set(personUpdate) {
+        console.log(personUpdate);
+        apiService.setPerson(personUpdate).then(function (d) {
             console.log('ok');
         })
     }
-    set(id);
 }
 angular.module('app')
     .controller('mainController', mainController);

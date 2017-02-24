@@ -8,6 +8,7 @@ namespace Weat.UI.Models
 {
     public class PersonViewModel
     {
+        public int Id { get; set; }
         [Display(Name = "Prenom")]
         public string FirstName { get; set; }
         [Display(Name = "Nom")]
