@@ -9,10 +9,10 @@
 
 namespace Weat.Dal.SqlServer.DataModel
 {
-    using Entities.DataModel;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using Weat.Entities.DataModel;
 
     public partial class WeatEntities : DbContext
     {
